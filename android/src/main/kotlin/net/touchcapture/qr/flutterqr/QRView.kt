@@ -18,6 +18,8 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
+
+
 class QRView(messenger: BinaryMessenger, id: Int, private val context: Context) :
         PlatformView, MethodChannel.MethodCallHandler {
 
@@ -138,8 +140,7 @@ class QRView(messenger: BinaryMessenger, id: Int, private val context: Context) 
         barcode.decodeContinuous(
                 object : BarcodeCallback {
                     override fun barcodeResult(result: BarcodeResult) {
-                        val code = mapOf("code" to result.text, "type" to result.barcodeFormat.name)
-                        channel.invokeMethod("onRecognizeQR", code)
+                        channel.invokeMethod("onRecognizeQR",  result.text)
                     }
 
                     override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
